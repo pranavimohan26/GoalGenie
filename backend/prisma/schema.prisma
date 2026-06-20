@@ -1,0 +1,144 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id            String        @id @default(uuid())
+  email         String        @unique
+  passwordHash  String        @map("password_hash")
+  fullName      String        @map("full_name")
+  age           Int?
+  education     String?
+  skillLevel    String        @default("beginner") @map("skill_level")
+  hoursPerDay   Int           @default(2) @map("hours_per_day")
+  learningStyle String        @default("visual") @map("learning_style")
+  interests     String?
+  xp            Int           @default(0)
+  currentStreak Int           @default(0) @map("current_streak")
+  role          String        @default("user")
+  createdAt     DateTime      @default(now()) @map("created_at")
+  updatedAt     DateTime      @updatedAt @map("updated_at")
+  
+  goals         Goal[]
+  achievements  Achievement[]
+  notifications Notification[]
+
+  @@map("users")
+}
+
+model Goal {
+  id                   String        @id @default(uuid())
+  userId               String        @map("user_id")
+  title                String
+  description          String?
+  durationMonths       Int           @map("duration_months")
+  knowledgeLevel       String        @map("knowledge_level")
+  dailyTimeCommitment  Int           @map("daily_time_commitment")
+  completionPercentage Float         @default(0.0) @map("completion_percentage")
+  riskScore            Float         @default(0.0) @map("risk_score")
+  status               String        @default("active")
+  createdAt            DateTime      @default(now()) @map("created_at")
+  updatedAt            DateTime      @updatedAt @map("updated_at")
+  deletedAt            DateTime?     @map("deleted_at")
+
+  user                 User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  milestones           Milestone[]
+
+  @@map("goals")
+}
+
+model Milestone {
+  id          String          @id @default(uuid())
+  goalId      String          @map("goal_id")
+  title       String
+  description String?
+  orderIndex  Int             @map("order_index")
+  targetDate  DateTime        @map("target_date")
+  status      String          @default("pending")
+  completedAt DateTime?       @map("completed_at")
+  createdAt   DateTime        @default(now()) @map("created_at")
+
+  goal        Goal            @relation(fields: [goalId], references: [id], onDelete: Cascade)
+  tasks       Task[]
+  resources   Resource[]
+  learningSession LearningSession?
+
+  @@map("milestones")
+}
+
+model Task {
+  id               String    @id @default(uuid())
+  milestoneId      String    @map("milestone_id")
+  title            String
+  description      String?
+  estimatedMinutes Int       @default(60) @map("estimated_minutes")
+  orderIndex       Int       @map("order_index")
+  isCompleted      Boolean   @default(false) @map("is_completed")
+  completedAt      DateTime? @map("completed_at")
+  createdAt        DateTime  @default(now()) @map("created_at")
+
+  milestone        Milestone @relation(fields: [milestoneId], references: [id], onDelete: Cascade)
+
+  @@map("tasks")
+}
+
+model Resource {
+  id          String   @id @default(uuid())
+  milestoneId String   @map("milestone_id")
+  title       String
+  type        String
+  url         String
+  rationale   String?
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  milestone   Milestone @relation(fields: [milestoneId], references: [id], onDelete: Cascade)
+
+  @@map("resources")
+}
+
+model Achievement {
+  id          String   @id @default(uuid())
+  userId      String   @map("user_id")
+  badgeName   String   @map("badge_name")
+  description String
+  iconKey     String   @map("icon_key")
+  unlockedAt  DateTime @default(now()) @map("unlocked_at")
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("achievements")
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+  userId    String   @map("user_id")
+  type      String
+  message   String
+  isRead    Boolean  @default(false) @map("is_read")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("notifications")
+}
+
+model LearningSession {
+  id              String   @id @default(uuid())
+  milestoneId     String   @unique @map("milestone_id")
+  content         String   
+  practiceTasks   String   
+  quiz            String   
+  quizScore       Int?     @map("quiz_score")
+  isCompleted     Boolean  @default(false) @map("is_completed")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  milestone       Milestone @relation(fields: [milestoneId], references: [id], onDelete: Cascade)
+
+  @@map("learning_sessions")
+}

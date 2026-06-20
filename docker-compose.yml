@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  # 1. PostgreSQL Database
+  postgres_db:
+    image: postgres:15-alpine
+    container_name: goalgenie_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: goalgenie
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      # Mount initialization DDL schema file automatically
+      - ./backend/src/models/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    restart: always
+
+  # 2. Node.js Express API Server
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: goalgenie_backend
+    ports:
+      - "5000:5000"
+    environment:
+      PORT: 5000
+      DATABASE_URL: postgres://postgres:postgres@postgres_db:5432/goalgenie
+      JWT_SECRET: super_secret_jwt_key_change_me_in_production
+      OPENAI_API_KEY: your_openai_api_key_here
+      NODE_ENV: development
+    depends_on:
+      - postgres_db
+    restart: always
+
+  # 3. React Frontend client
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: goalgenie_frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    restart: always
+
+volumes:
+  postgres_data:

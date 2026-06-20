@@ -1,0 +1,450 @@
+/* --- AI Life Navigator Premium CSS Design System --- */
+
+:root {
+  /* Dark Mode Palette (Default) */
+  --bg-main: hsl(222, 47%, 8%);
+  --bg-card: hsl(223, 47%, 13%);
+  --bg-card-hover: hsl(223, 47%, 17%);
+  --bg-nav: hsl(222, 47%, 6%);
+  
+  --border-color: rgba(255, 255, 255, 0.08);
+  --border-hover: rgba(255, 255, 255, 0.15);
+  
+  --text-main: hsl(210, 40%, 98%);
+  --text-muted: hsl(215, 20%, 65%);
+  --text-dark: hsl(215, 20%, 40%);
+
+  /* Primary Brand Gradients (Neon Electric Purple to Cyan) */
+  --primary: hsl(263, 80%, 60%);
+  --primary-hover: hsl(263, 85%, 65%);
+  --secondary: hsl(190, 95%, 45%);
+  --gradient-accent: linear-gradient(135deg, hsl(263, 80%, 60%) 0%, hsl(190, 95%, 45%) 100%);
+  --gradient-glow: 0 0 25px rgba(124, 58, 237, 0.35);
+
+  /* Gamification Tokens */
+  --gold: hsl(45, 100%, 50%);
+  --gold-glow: 0 0 25px rgba(255, 215, 0, 0.4);
+  --journey-bg: linear-gradient(135deg, rgba(124, 58, 237, 0.1) 0%, rgba(0, 212, 255, 0.1) 100%);
+
+  /* Status Tokens */
+  --success: hsl(142, 70%, 45%);
+  --warning: hsl(38, 92%, 50%);
+  --danger: hsl(350, 80%, 55%);
+  --info: hsl(200, 80%, 50%);
+
+  /* Metrics / UI System */
+  --radius-lg: 16px;
+  --radius-md: 10px;
+  --radius-sm: 6px;
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --font-header: 'Outfit', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+/* Light Theme Variables Toggle */
+.light-theme {
+  --bg-main: hsl(210, 40%, 96%);
+  --bg-card: hsl(0, 0%, 100%);
+  --bg-card-hover: hsl(210, 40%, 98%);
+  --bg-nav: hsl(210, 40%, 93%);
+  
+  --border-color: rgba(0, 0, 0, 0.06);
+  --border-hover: rgba(0, 0, 0, 0.12);
+  
+  --text-main: hsl(222, 47%, 12%);
+  --text-muted: hsl(215, 15%, 45%);
+  --text-dark: hsl(215, 12%, 60%);
+
+  --primary: hsl(263, 75%, 55%);
+  --primary-hover: hsl(263, 80%, 50%);
+  
+  --gradient-glow: 0 0 20px rgba(124, 58, 237, 0.15);
+}
+
+/* Base Rules */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-header);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+/* Typography Utility */
+.gradient-text {
+  background: var(--gradient-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Layout Elements */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+/* Glassmorphism Cards */
+.card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  transition: var(--transition-smooth);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  border-color: var(--border-hover);
+  box-shadow: 0 8px 35px rgba(0, 0, 0, 0.25);
+}
+
+/* Interactive Elements */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-header);
+  font-weight: 500;
+  padding: 10px 20px;
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.btn-primary {
+  background: var(--gradient-accent);
+  color: white;
+  box-shadow: var(--gradient-glow);
+}
+
+.btn-primary:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+}
+
+.btn-secondary:hover {
+  background-color: var(--border-color);
+  border-color: var(--border-hover);
+}
+
+.btn-danger {
+  background-color: var(--danger);
+  color: white;
+}
+
+.btn-danger:hover {
+  opacity: 0.9;
+}
+
+/* Forms styling */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  display: block;
+  font-family: var(--font-header);
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: var(--text-muted);
+}
+
+.form-input {
+  width: 100%;
+  padding: 12px 16px;
+  background-color: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  color: var(--text-main);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  transition: var(--transition-smooth);
+}
+
+.light-theme .form-input {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.2);
+}
+
+select.form-input option {
+  background-color: var(--bg-card);
+  color: var(--text-main);
+}
+
+/* Custom Checkbox for Roadmaps Checklist */
+.checkbox-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  cursor: pointer;
+  user-select: none;
+  padding: 12px;
+  border-radius: var(--radius-md);
+  transition: var(--transition-smooth);
+}
+
+.checkbox-container:hover {
+  background-color: var(--border-color);
+}
+
+.checkbox-input {
+  display: none;
+}
+
+.checkmark {
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-smooth);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.checkbox-input:checked + .checkmark {
+  background: var(--gradient-accent);
+  border-color: transparent;
+}
+
+.checkbox-input:checked + .checkmark::after {
+  content: "✓";
+  color: white;
+  font-weight: bold;
+  font-size: 0.85rem;
+}
+
+/* Animations */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.pulse-loader {
+  animation: pulse 1.8s infinite ease-in-out;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0px); }
+}
+
+.float-animation {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes glow-pulse {
+  0% { box-shadow: 0 0 10px rgba(255, 215, 0, 0.2); }
+  50% { box-shadow: 0 0 30px rgba(255, 215, 0, 0.6); }
+  100% { box-shadow: 0 0 10px rgba(255, 215, 0, 0.2); }
+}
+
+.trophy-glow {
+  animation: glow-pulse 2s infinite;
+  color: var(--gold);
+}
+
+/* Journey Path Styling */
+.journey-container {
+  position: relative;
+  padding-left: 45px;
+  margin-top: 30px;
+}
+
+.journey-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 18px;
+  width: 6px;
+  background: var(--gradient-accent);
+  border-radius: 6px;
+  z-index: 0;
+  box-shadow: var(--gradient-glow);
+}
+
+.journey-node {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 40px;
+}
+
+.journey-node::before {
+  content: '';
+  position: absolute;
+  top: 30px;
+  left: -39px;
+  width: 24px;
+  height: 24px;
+  background-color: var(--bg-card);
+  border: 4px solid var(--primary);
+  border-radius: 50%;
+  box-shadow: var(--gradient-glow);
+  z-index: 2;
+  transition: var(--transition-smooth);
+}
+
+.journey-node.completed::before {
+  background-color: var(--success);
+  border-color: var(--success);
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.6);
+}
+
+.journey-node.active::before {
+  background-color: var(--gold);
+  border-color: var(--gold);
+  box-shadow: var(--gold-glow);
+  animation: pulse 1.5s infinite;
+}
+
+.dynamic-hurdle-card {
+  background: linear-gradient(145deg, var(--bg-card) 0%, rgba(124, 58, 237, 0.08) 100%);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid var(--primary);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+.dynamic-hurdle-card:hover {
+  transform: translateX(12px) translateY(-4px);
+  border-left-color: var(--gold);
+  box-shadow: 0 15px 45px rgba(124, 58, 237, 0.25);
+}
+
+.dynamic-hurdle-card.completed {
+  border-left-color: var(--success);
+  background: linear-gradient(145deg, var(--bg-card) 0%, rgba(16, 185, 129, 0.08) 100%);
+}
+
+.dynamic-hurdle-card.completed:hover {
+  border-left-color: var(--success);
+}
+
+/* Responsive Grid layouts */
+.grid-cols-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.grid-cols-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+@media (max-width: 900px) {
+  .grid-cols-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .grid-cols-2, .grid-cols-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Terms and Conditions Scroll Box */
+.terms-box {
+  height: 150px;
+  overflow-y: auto;
+  padding: 12px;
+  background-color: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: var(--text-muted);
+  margin-top: 10px;
+  margin-bottom: 12px;
+  text-align: left;
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary) transparent;
+}
+
+.light-theme .terms-box {
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+.terms-header {
+  font-family: var(--font-header);
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--text-main);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Custom Responsive Layout Grids */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 2.2fr 1fr;
+  gap: 24px;
+}
+
+.profile-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 2fr;
+  gap: 24px;
+}
+
+.goal-details-grid {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  gap: 24px;
+}
+
+@media (max-width: 960px) {
+  .dashboard-grid, .profile-grid, .goal-details-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
